@@ -33,8 +33,8 @@ export default function Quiz() {
   }, []);
 
   useEffect(() => {
-    if (timer === 0 || submitted) {
-      if (timer === 0) {
+    if (timer === 1 || submitted) {
+      if (timer === 1) {
         handleSubmit();
       }
       return;
@@ -139,8 +139,13 @@ export default function Quiz() {
           const correctOption = q.options.find((opt) => opt.is_correct);
 
           return (
-            <div key={q.id} className="p-4 bg-gray-50 rounded-md shadow-sm mb-6">
-              <h2 className="font-semibold text-lg md:text-xl">{q.description}</h2>
+            <div
+              key={q.id}
+              className="p-4 bg-gray-50 rounded-md shadow-sm mb-6"
+            >
+              <h2 className="font-semibold text-lg md:text-xl">
+                {q.description}
+              </h2>
               <div className="mt-2 space-y-2">
                 {q.options &&
                   q.options.map((option) => {
@@ -169,7 +174,9 @@ export default function Quiz() {
               {submitted && (
                 <p
                   className={`mt-2 font-semibold ${
-                    selectedOption?.is_correct ? "text-green-600" : "text-red-600"
+                    selectedOption?.is_correct
+                      ? "text-green-600"
+                      : "text-red-600"
                   }`}
                 >
                   {selectedOption
@@ -183,6 +190,34 @@ export default function Quiz() {
           );
         })}
       </div>
+
+      {showReview &&(
+        <>
+          {currentQuestions.map((q) => {
+            const selectedOption = userAnswers[q.id];
+            const correctOption = q.options.find((opt) => opt.is_correct);
+
+            return (
+              <div key={q.id} className="p-4 bg-gray-50 rounded-md shadow-sm">
+                {q.detailed_solution && (
+                  <div className="mt-3 p-3 border rounded bg-gray-100">
+                    {showSolution[q.id] ? (
+                      <p className="mt-2">{q.detailed_solution}</p>
+                    ) : (
+                      <button
+                        onClick={() => handleToggleSolution(q.id)}
+                        className="mt-2 text-blue-600 underline font-semibold"
+                      >
+                        More Details
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </>
+      )}
 
       {/* Pagination */}
       <div className="mt-4 flex justify-center">
@@ -202,21 +237,32 @@ export default function Quiz() {
       </div>
 
       {/* Quiz Completed Popup */}
-      {submitted && (
+      {submitted && !showReview && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg space-y-6 max-w-lg mx-auto text-center">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-800">Quiz Completed</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+              Quiz Completed
+            </h2>
             <p className="mt-2 text-lg">
               You scored {calculateScore()} out of {quizData.questions.length}!
             </p>
             <div className="flex flex-wrap justify-between mt-6 gap-3">
-              <button onClick={handleReview} className="bg-blue-500 text-white py-2 px-4 rounded-md">
+              <button
+                onClick={handleReview}
+                className="bg-blue-500 text-white py-2 px-4 rounded-md"
+              >
                 Review Answers
               </button>
-              <button onClick={handleRestart} className="bg-yellow-500 text-white py-2 px-4 rounded-md">
+              <button
+                onClick={handleRestart}
+                className="bg-yellow-500 text-white py-2 px-4 rounded-md"
+              >
                 Restart
               </button>
-              <button onClick={handleHome} className="bg-gray-500 text-white py-2 px-4 rounded-md">
+              <button
+                onClick={handleHome}
+                className="bg-gray-500 text-white py-2 px-4 rounded-md"
+              >
                 Home
               </button>
             </div>

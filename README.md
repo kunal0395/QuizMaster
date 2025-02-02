@@ -25,11 +25,15 @@ A dynamic and interactive quiz application built with React that allows users to
    ```
 3. Start the development server:
    ```sh
-   npm start
+   npm run dev
    ```
 4. Open the app in your browser:
    ```
    http://localhost:3000
+   ```
+5. All the necessary content like assets, videos of application:
+   ```
+   https://drive.google.com/drive/folders/1hrfZAyC9NGAU8rpij-OimZQQv3N1n_nr
    ```
 
 ## 🛠 Technologies Used
@@ -51,19 +55,23 @@ A dynamic and interactive quiz application built with React that allows users to
 
 ```
 quiz-app/
+├── public/
 ├── src/
+│   ├── assets/
 │   ├── components/
-│   │   ├── Quiz.jsx
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Greetings.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── QuizCategory.jsx
 │   ├── pages/
 │   │   ├── Home.jsx
+│   │   ├── Quiz.jsx
 │   ├── App.js
 │   ├── index.js
-│   ├── styles/
-│   │   ├── index.css
-│   ├── assets/
-│   ├── utils/
-│   ├── api/
-├── public/
+│   ├── main.js
+│   |── index.css
 ├── package.json
 ├── README.md
 ```
